@@ -1,0 +1,28 @@
+﻿@model Party.Models.Guest
+@{
+    ViewBag.Title = "Thanks";
+}
+
+<div>
+    <p>
+        Tähan sind, @Model.Name
+    </p>
+</div>
+
+<div>
+    @if (Model.WillAttend == true)
+    {
+        @: Ootame sind kallis sõber!
+        <p>
+            img
+        </p>
+    }
+    else
+    {
+        @: Ootame sind ei kallis sõber!
+        <p>
+
+        </p>
+    }
+    @ViewBag.Message @**@
+</div>
