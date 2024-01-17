@@ -13,17 +13,32 @@
     @if (Model.WillAttend == true)
     {
         @: Ootame sind kallis sõber!
-    <p>
-       <img src="~/Images/happy.png" width="400" height="500" />
-        
-    </p>
+        <p>
+            <img src="~/Images/happy.png" width="400" height="500" />
+            <form id="tuletaForm" action="@Url.Action("TuletaClicked", "Home")" method="post">
+                <input type="submit" value="tuleata meelda" id="tuleta" name="tuleta" />
+            </form>
+        </p>
     }
     else
     {
         @: Ei oota sind ei kallis sõber!
-<p>
-    <img src="~/Images/sad.jpg" width="400" height="500" />
-</p>
+        <p>
+            <img src="~/Images/sad.jpg" width="400" height="500" />
+        </p>
     }
-    @ViewBag.Message @**@
+    @ViewBag.Message
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#tuletaForm").submit(function (event) {
+                event.preventDefault();
+                $.post($(this).attr("action"), $(this).serialize(), function (data) {
+                    // Handle the response, if needed
+                });
+            });
+        });
+    </script>
+}

@@ -3,14 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
 using static System.Web.Helpers.WebMail;
 
 namespace Party.Controllers
 {
+
     public class HomeController : Controller
     {
+        
+
         public ActionResult Index()
         {
             int hour = DateTime.Now.Hour;
@@ -27,7 +31,7 @@ namespace Party.Controllers
             {
                 @ViewBag.Greeting = "Tere õhtuni";
             }
-            else if (hour >= 0 )
+            else if (hour >= 0)
             {
                 @ViewBag.Greeting = "Tere öö";
             }
@@ -77,7 +81,7 @@ namespace Party.Controllers
             return View();
         }
 
-        
+
 
         public ActionResult About()
         {
@@ -101,10 +105,12 @@ namespace Party.Controllers
         [HttpPost]
         public ViewResult Ankeet(Guest guest)
         {
+
             if (ModelState.IsValid)
             {
                 E_mail(guest);
-                return View("Thanks",guest);
+                return View("Thanks", guest);
+
             }
             else
             {
@@ -116,8 +122,8 @@ namespace Party.Controllers
         {
             try
             {
-               
-                
+
+
                 System.Web.Helpers.WebMail.SmtpServer = "smtp.gmail.com";
                 System.Web.Helpers.WebMail.SmtpPort = 587;
                 System.Web.Helpers.WebMail.EnableSsl = true;
@@ -134,5 +140,34 @@ namespace Party.Controllers
 
 
         }
+        [HttpPost]
+        public ActionResult TuletaClicked(Guest guest)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    E_mail(guest);
+                    ViewBag.Message = "Email sent successfully!";
+                    return View("Thanks", guest);
+                }
+                catch (Exception ex)
+                {
+
+                    // Display a user-friendly message
+                    ViewBag.Message = "Sorry! Unable to send email at the moment." + ex.Message; ;
+                    return View("Thanks", guest); // You might want to handle this case differently
+                }
+            }
+            else
+            {
+                // Handle validation errors
+                ViewBag.Message = "Invalid input. Please check the form.";
+                return View("Thanks", guest); // You might want to handle this case differently
+            }
         }
+
+
+    }
+
 }
