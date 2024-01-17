@@ -21,4 +21,7 @@ namespace Party.Models
 
         public string Notes { get; set; }
     }
+
+
+
 }

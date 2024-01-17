@@ -13,16 +13,17 @@
     @if (Model.WillAttend == true)
     {
         @: Ootame sind kallis sõber!
-        <p>
-            img
-        </p>
+    <p>
+       <img src="~/Images/happy.png" width="400" height="500" />
+        
+    </p>
     }
     else
     {
-        @: Ootame sind ei kallis sõber!
-        <p>
-
-        </p>
+        @: Ei oota sind ei kallis sõber!
+<p>
+    <img src="~/Images/sad.jpg" width="400" height="500" />
+</p>
     }
     @ViewBag.Message @**@
 </div>
