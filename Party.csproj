@@ -242,6 +242,7 @@
     <Content Include="Views\Home\Kutse.cshtml" />
     <Content Include="Views\Home\Ankeet.cshtml" />
     <Content Include="Views\Home\Thanks.cshtml" />
+    <Content Include="Views\Home\Guests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

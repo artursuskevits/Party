@@ -145,6 +145,8 @@ namespace Party.Controllers
         {
             if (ModelState.IsValid)
             {
+                db.Guests.Add(guest);
+                db.SaveChanges();
                 try
                 {
                     E_mail(guest);
@@ -168,6 +170,7 @@ namespace Party.Controllers
         }
 
         GuestContext db = new GuestContext();
+        [Authorize]
         public ActionResult Guests()
         {
             IEnumerable<Guest> guests = db.Guests;
