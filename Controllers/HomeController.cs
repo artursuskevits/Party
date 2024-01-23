@@ -13,7 +13,7 @@ namespace Party.Controllers
 
     public class HomeController : Controller
     {
-        
+
 
         public ActionResult Index()
         {
@@ -165,6 +165,13 @@ namespace Party.Controllers
                 ViewBag.Message = "Invalid input. Please check the form.";
                 return View("Thanks", guest); // You might want to handle this case differently
             }
+        }
+
+        GuestContext db = new GuestContext();
+        public ActionResult Guests()
+        {
+            IEnumerable<Guest> guests = db.Guests;
+            return View(guests);
         }
 
 

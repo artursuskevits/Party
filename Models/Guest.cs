@@ -8,6 +8,7 @@ namespace Party.Models
 {
     public class Guest
     {
+        public int Id { get; set; } 
         [Required(ErrorMessage = "Sissesta nimi siia")]
         public string Name { get; set; }
 
