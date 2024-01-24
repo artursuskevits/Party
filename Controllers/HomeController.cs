@@ -1,6 +1,7 @@
 ﻿using Party.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
@@ -96,12 +97,12 @@ namespace Party.Controllers
 
             return View();
         }
+
         [HttpGet]
         public ActionResult Ankeet()
         {
             return View();
         }
-
         [HttpPost]
         public ViewResult Ankeet(Guest guest)
         {
@@ -109,6 +110,8 @@ namespace Party.Controllers
             if (ModelState.IsValid)
             {
                 E_mail(guest);
+                db.Guests.Add(guest);
+                db.SaveChanges();
                 return View("Thanks", guest);
 
             }
@@ -117,6 +120,9 @@ namespace Party.Controllers
                 return View();
             }
         }
+
+
+
 
         public void E_mail(Guest guest)
         {
@@ -177,7 +183,167 @@ namespace Party.Controllers
             return View(guests);
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        public ActionResult Create(Guest guest)
+        {
+
+            db.Guests.Add(guest);
+            db.SaveChanges();
+            return RedirectToAction("Guests");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            Guest g = db.Guests.Find(id);
+            if (g == null)
+            {
+                return HttpNotFound();
+
+            }
+            return View(g);
+        }
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Guest g = db.Guests.Find(id);
+            if (g == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Guests.Remove(g);
+            db.SaveChanges();
+            return RedirectToAction("Guest");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            Guest g = db.Guests.Find(id);
+            if (g == null)
+            {
+                return HttpNotFound();
+
+            }
+            return View(g);
+        }
+        [HttpPost, ActionName("Edit")]
+        public ActionResult EditConfirmed(Guest guest)
+        {
+            db.Entry(guest).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Guests");
+        }
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            Guest g = db.Guests.Find(id);
+            if (g == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(g);
+        }
+        [HttpGet]
+        public ActionResult Accept()
+        {
+            IEnumerable<Guest> attendingGuests = db.Guests.Where(g => g.WillAttend == true);
+            return View("Guests", attendingGuests);
+        }
+        public ActionResult Reject()
+        {
+            IEnumerable<Guest> rejectedGuests = db.Guests.Where(g => g.WillAttend == false);
+            return View("Guests", rejectedGuests);
+        }
+        [Authorize]
+        public ActionResult Birthdays()
+        {
+            IEnumerable<Birthday> birthday = db.Birthday;
+            return View(birthday);
+        }
+        [HttpGet]
+        public ActionResult CreatBi()
+        {
+            return View();
+        }
+        public ActionResult CreateBi(Birthday birthday)
+        {
+            if (ModelState.IsValid)
+            {
+                // Check the validity of the date before saving
+                if (IsValidDate(birthday.Date))
+                {
+                    db.Birthday.Add(birthday);
+                    db.SaveChanges();
+                    return RedirectToAction("Birthdays");
+                }
+                else
+                {
+                    ModelState.AddModelError("Date", "Invalid date");
+                }
+            }
+
+            // If ModelState is not valid or date is invalid, return to the CreateBi view with validation errors
+            return View("CreateBi", birthday);
+        }
+
+        private bool IsValidDate(DateTime date)
+        {
+            // Add your custom date validation logic here
+            // For example, you can check if the date is in the future or if it meets specific criteria
+            return date <= DateTime.Now;
+        }
+
+
+        [HttpGet]
+        public ActionResult EditBi(int? id)
+        {
+            Birthday b = db.Birthday.Find(id);
+            if (b == null)
+            {
+                return HttpNotFound();
+
+            }
+            return View(b);
+        }
+        [HttpPost, ActionName("EditBi")]
+        public ActionResult EditBiConfirmed(Birthday birthday)
+        {
+            db.Entry(birthday).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Birthdays");
+        }
+        public ActionResult DeleteBi(int id)
+        {
+            Birthday bi = db.Birthday.Find(id);
+            if (bi == null)
+            {
+                return HttpNotFound();
+
+            }
+            return View(bi);
+        }
+        [HttpPost, ActionName("DeleteBi")]
+        public ActionResult DeleteBiConfirmed(int id)
+        {
+            Birthday bi = db.Birthday.Find(id);
+            if (bi == null)
+            {
+                return HttpNotFound();
+            }
+
+            db.Birthday.Remove(bi);
+            db.SaveChanges();
+            return RedirectToAction("Birthdays");
+        }
+
 
     }
-
 }

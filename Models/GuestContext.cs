@@ -8,8 +8,9 @@ using System.Data.Entity;
 namespace Party.Models
 {
 
-    public class GuestContext: DbContext
+    public class GuestContext : DbContext
     {
-        public DbSet<Guest> Guests { get; set; } 
+        public DbSet<Guest> Guests { get; set; }
+        public DbSet<Birthday> Birthday { get; set; }
     }
 }

@@ -1,27 +1,69 @@
 ﻿@model IEnumerable<Party.Models.Guest>
 
 @{
-    ViewBag.Title = "Guests";
+    ViewBag.Title = "Attending Guests";
 }
+<style>
+    /* Style for the table */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-<h2>Guests</h2>
+        /* Style for table header */
+        .table th {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+        }
+
+        /* Style for table rows */
+        .table td, .table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        /* Style for alternating rows */
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for links in the last column */
+        .table td a {
+            color: #3498db;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+            /* Hover effect for links */
+            .table td a:hover {
+                text-decoration: underline;
+                color: #2980b9;
+            }
+</style>
+<h2>Attending Guests</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Lisa uus", "Create")<br />
+    @Html.ActionLink("Tulevad", "Accept")
+    @Html.ActionLink("Loobusid", "Reject")
+    @Html.ActionLink("Kõik", "Guests")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Nimi
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            Epost
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            Number
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WillAttend)
+            Osleb
         </th>
         <th></th>
     </tr>
@@ -41,13 +83,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.WillAttend)
             </td>
+
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Muuda", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Üksikasjad", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Kustuta", "Delete", new { id = item.Id })
             </td>
         </tr>
-
     }
 
 </table>

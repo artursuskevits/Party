@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Party.Models.Birthday>
+
+@{
+    ViewBag.Title = "Birthdays";
+}
+<style>
+    /* Style for the table */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+        /* Style for table header */
+        .table th {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+        }
+
+        /* Style for table rows */
+        .table td, .table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        /* Style for alternating rows */
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for links in the last column */
+        .table td a {
+            color: #3498db;
+            margin-right: 10px;
+            text-decoration: none;
+        }
+
+            /* Hover effect for links */
+            .table td a:hover {
+                text-decoration: underline;
+                color: #2980b9;
+            }
+</style>
+<h2>Birthdays</h2>
+
+<p>
+    @Html.ActionLink("Lisa uus", "CreateBi")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Pidu Nimetus
+        </th>
+        <th>
+            Pidu kuupäev
+        </th>
+        <th>
+            Märkused
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nimetus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.ActionLink("Muuda", "EditBi", new { id = item.Id })|
+                @Html.ActionLink("Kustuta", "DeleteBi", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
