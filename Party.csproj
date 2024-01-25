@@ -248,6 +248,10 @@
     <Content Include="Views\Home\CreateBi.cshtml" />
     <Content Include="Views\Home\EditBi.cshtml" />
     <Content Include="Views\Home\DeleteBi.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="Views\Home\Delete.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

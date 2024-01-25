@@ -101,6 +101,10 @@ namespace Party.Controllers
         [HttpGet]
         public ActionResult Ankeet()
         {
+            Guest guest = new Guest();
+            guest.Birthdays = db.Birthdays.ToList(); 
+
+            return View(guest);
             return View();
         }
         [HttpPost]
@@ -197,29 +201,28 @@ namespace Party.Controllers
             return RedirectToAction("Guests");
         }
 
-        [HttpGet]
         public ActionResult Delete(int id)
         {
-            Guest g = db.Guests.Find(id);
-            if (g == null)
+            Guest d = db.Guests.Find(id);
+            if (d == null)
             {
                 return HttpNotFound();
 
             }
-            return View(g);
+            return View(d);
         }
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Guest g = db.Guests.Find(id);
-            if (g == null)
+            Guest d = db.Guests.Find(id);
+            if (d == null)
             {
                 return HttpNotFound();
             }
 
-            db.Guests.Remove(g);
+            db.Guests.Remove(d);
             db.SaveChanges();
-            return RedirectToAction("Guest");
+            return RedirectToAction("Guests");
         }
 
         [HttpGet]

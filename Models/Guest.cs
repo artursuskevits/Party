@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -21,6 +22,12 @@ namespace Party.Models
         public bool? WillAttend { get; set; }
 
         public string Notes { get; set; }
+        [Display(Name = "Birthday")]
+        public int? BirthdayId { get; set; }
+
+        [ForeignKey("BirthdayId")]
+        public Birthday Birthday { get; set; }
+        public List<Birthday> Birthdays { get; set; }
     }
 
 

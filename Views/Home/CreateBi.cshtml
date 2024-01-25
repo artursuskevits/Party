@@ -1,11 +1,10 @@
-﻿﻿@model Party.Models.Birthday
+﻿@model Party.Models.Birthday
 
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Lisa</h2>
-
+<h2>Lisa Pidu</h2>
 
 @using (Html.BeginForm())
 {
@@ -14,7 +13,7 @@
     <div class="form-horizontal">
         <h4>Pidu</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
             <label for="Nimetus" class="control-label col-md-2">Nimi</label>
             <div class="col-md-10">
